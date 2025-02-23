@@ -1,8 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.userprofile.GetUserProfileDTO;
+import com.example.demo.dto.userprofile.UserProfileDTO;
 import com.example.demo.model.UserProfile;
 import com.example.demo.service.UserProfileService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,18 +17,18 @@ public class UserProfileController {
     private UserProfileService userProfileService;
 
     @PostMapping
-    public UserProfile createUserProfile(@PathVariable Long userId, @RequestBody UserProfile userProfile) {
-        return userProfileService.createUserProfile(userId, userProfile);
+    public ResponseEntity<UserProfileDTO> createUserProfile(@PathVariable Long userId, @Valid @RequestBody UserProfileDTO userProfile) {
+        return ResponseEntity.ok(userProfileService.createUserProfile(userId, userProfile));
     }
 
     @GetMapping
-    public UserProfile getUserProfile(@PathVariable Long userId) {
-        return userProfileService.getUserProfile(userId);
+    public ResponseEntity<GetUserProfileDTO> getUserProfile(@PathVariable Long userId) {
+        return ResponseEntity.ok(userProfileService.getUserProfile(userId));
     }
 
     @PutMapping
-    public UserProfile updateUserProfile(@PathVariable Long userId, @RequestBody UserProfile userProfile){
-        return userProfileService.updateUserProfile(userId, userProfile);
+    public ResponseEntity<UserProfileDTO> updateUserProfile(@PathVariable Long userId, @Valid @RequestBody UserProfileDTO userProfile){
+        return ResponseEntity.ok(userProfileService.updateUserProfile(userId, userProfile));
     }
 }
 

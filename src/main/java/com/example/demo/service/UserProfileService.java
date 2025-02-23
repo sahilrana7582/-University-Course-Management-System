@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.userprofile.GetUserProfileDTO;
+import com.example.demo.dto.userprofile.UserProfileDTO;
 import com.example.demo.model.User;
 import com.example.demo.model.UserProfile;
 import com.example.demo.respository.UserProfileRepository;
@@ -7,7 +9,6 @@ import com.example.demo.respository.UserRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 @Service
 public class UserProfileService {
     @Autowired
@@ -17,40 +18,70 @@ public class UserProfileService {
     private UserRespository userRespository;
 
 
-    public UserProfile getUserProfile(Long userId){
+    public GetUserProfileDTO getUserProfile(Long userId) {
         User existingUser = userRespository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User Not Found"));
 
-        return existingUser.getUserProfile();
+        UserProfile userProfile = existingUser.getUserProfile();
+
+        if (userProfile == null) {
+            throw new RuntimeException("User Profile Not Found");
+        }
+
+        return new GetUserProfileDTO(
+                userProfile.getId(),
+                userProfile.getAge(),
+                userProfile.getPhone(),
+                userProfile.getGender(),
+                existingUser.getId()
+        );
     }
 
-    public UserProfile createUserProfile(Long userId, UserProfile userProfile) {
+    public UserProfileDTO createUserProfile(Long userId, UserProfileDTO userProfileDTO) {
         User existingUser = userRespository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User Not Found"));
 
-        userProfile.setUser(existingUser);
+        UserProfile newUserProfile = new UserProfile();
+        newUserProfile.setAge(userProfileDTO.getAge());
+        newUserProfile.setPhone(userProfileDTO.getPhone());
+        newUserProfile.setGender(userProfileDTO.getGender());
+        newUserProfile.setUser(existingUser);
 
-        return userProfileRepository.save(userProfile);
+        UserProfile savedProfile = userProfileRepository.save(newUserProfile);
+
+        return new UserProfileDTO(
+                savedProfile.getAge(),
+                savedProfile.getPhone(),
+                savedProfile.getGender(),
+                savedProfile.getUser().getId()
+        );
     }
 
-    public UserProfile updateUserProfile(Long userId, UserProfile userProfile) {
+    public UserProfileDTO updateUserProfile(Long userId, UserProfileDTO userProfile) {
         User existingUser = userRespository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User Not Found!"));
 
         UserProfile existingProfile = userProfileRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("User Profile Not Found!"));
 
-        if (userProfile.getAge() != 0) {
+        if (userProfile.getAge() > 0) {
             existingProfile.setAge(userProfile.getAge());
         }
-        if (userProfile.getPhone() != null && !userProfile.getPhone().isEmpty()) {
+        if (userProfile.getPhone() != null && !userProfile.getPhone().trim().isEmpty()) {
             existingProfile.setPhone(userProfile.getPhone());
         }
         if (userProfile.getGender() != null) {
             existingProfile.setGender(userProfile.getGender());
         }
 
-        return userProfileRepository.save(existingProfile);
+        UserProfile updatedProfile = userProfileRepository.save(existingProfile);
+
+        return new UserProfileDTO(
+                updatedProfile.getAge(),
+                updatedProfile.getPhone(),
+                updatedProfile.getGender(),
+                userId
+        );
     }
 
 
