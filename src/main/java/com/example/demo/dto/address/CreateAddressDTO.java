@@ -8,7 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateAddressDTO {
+
     private Long id;
+
     @Min(1)
     private int houseNumber;
 

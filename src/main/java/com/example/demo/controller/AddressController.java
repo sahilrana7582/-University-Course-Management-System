@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.address.CreateAddressDTO;
+import com.example.demo.dto.address.GetUserAddressDTO;
 import com.example.demo.service.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,16 @@ public class AddressController {
 
         CreateAddressDTO savedAddress = addressService.createAddress(userId, createAddressDTO);
         return ResponseEntity.ok(savedAddress);
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<CreateAddressDTO> updateAddress(@PathVariable Long userId, @RequestBody CreateAddressDTO createAddressDTO){
+        return ResponseEntity.ok(addressService.updateAddress(userId, createAddressDTO));
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<GetUserAddressDTO> getUserAddress(@PathVariable Long userId){
+        return ResponseEntity.ok(addressService.getUserAddress(userId));
     }
 
 }
