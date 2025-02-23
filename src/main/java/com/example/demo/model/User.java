@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.model.address.Address;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -36,8 +37,13 @@ public class User {
     private String password;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JsonManagedReference  // Prevents infinite recursion
+    @JsonManagedReference
     private UserProfile userProfile;
+
+    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_id")
+    @JsonManagedReference
+    private Address address;
 
 
 }
