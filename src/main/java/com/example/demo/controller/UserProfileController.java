@@ -21,5 +21,10 @@ public class UserProfileController {
     public UserProfile getUserProfile(@PathVariable Long userId) {
         return userProfileService.getUserProfile(userId);
     }
+
+    @PutMapping
+    public UserProfile updateUserProfile(@PathVariable Long userId, @RequestBody UserProfile userProfile){
+        return userProfileService.updateUserProfile(userId, userProfile);
+    }
 }
 

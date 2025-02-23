@@ -33,5 +33,26 @@ public class UserProfileService {
         return userProfileRepository.save(userProfile);
     }
 
+    public UserProfile updateUserProfile(Long userId, UserProfile userProfile) {
+        User existingUser = userRespository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User Not Found!"));
+
+        UserProfile existingProfile = userProfileRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("User Profile Not Found!"));
+
+        if (userProfile.getAge() != 0) {
+            existingProfile.setAge(userProfile.getAge());
+        }
+        if (userProfile.getPhone() != null && !userProfile.getPhone().isEmpty()) {
+            existingProfile.setPhone(userProfile.getPhone());
+        }
+        if (userProfile.getGender() != null) {
+            existingProfile.setGender(userProfile.getGender());
+        }
+
+        return userProfileRepository.save(existingProfile);
+    }
+
+
 
 }
