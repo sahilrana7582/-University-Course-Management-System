@@ -22,6 +22,16 @@ public class UserService {
     public List<User> getAllUsers(){
         return userRespository.findAll();
     }
+    public User updateUser(Long id, User newUser){
+        User existingUser = userRespository.findById(id)
+                .orElseThrow(()->new RuntimeException("User Not Found"));
+
+        existingUser.setName(newUser.getName());
+        existingUser.setEmail(newUser.getEmail());
+        existingUser.setPassword(newUser.getPassword());
+
+        return userRespository.save(existingUser);
+    }
 
 
 }
