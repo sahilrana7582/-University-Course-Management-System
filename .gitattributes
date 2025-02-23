@@ -1,2 +1,62 @@
-/mvnw text eol=lf
-*.cmd text eol=crlf
+# Compiled class files
+*.class
+
+# Logs
+logs/
+*.log
+log/
+
+# Maven target and Gradle build directories
+target/
+build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Eclipse
+.metadata/
+*.classpath
+*.project
+*.settings/
+
+# VS Code
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment and config files
+.env
+application.properties
+application.yml
+application-dev.properties
+application-prod.properties
+
+# Spring Boot specific
+/target/
+/bin/
+/tmp/
+/*.war
+/*.jar
+
+# Dependency directories
+/node_modules/
+/.mvn/
+/.gradle/
+/build/
+
+# IDE files
+*.swp
+*.swo
+*.swn
+
+# Git hooks & configurations
+/mvnw
+/mvnw.cmd
+
+# Ignore generated files
+/main/resources/static/built/
