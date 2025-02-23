@@ -59,4 +59,5 @@ application-prod.properties
 /mvnw.cmd
 
 # Ignore generated files
-/main/resources/static/built/
+/main/resources
+/src/main/resources
