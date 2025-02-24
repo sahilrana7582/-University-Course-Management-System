@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.example.demo.model.address.Address;
+import com.example.demo.model.order.Order;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -10,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -17,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)  // Enables auditing for @CreatedDate/@LastModifiedDate
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
@@ -45,6 +47,9 @@ public class User {
     @JsonManagedReference
     private Address address;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Order> orders;
 
 }
 
