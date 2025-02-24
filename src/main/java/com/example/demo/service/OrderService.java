@@ -8,6 +8,8 @@ import com.example.demo.respository.UserRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
     @Autowired
@@ -26,5 +28,13 @@ public class OrderService {
         newOrder.setUser(user);
 
         return orderRepository.save(newOrder);
+    }
+
+    public List<Order> fetchUserOrder(Long userId){
+        User user = userRespository.findById(userId)
+                .orElseThrow(()->new RuntimeException("User Not Found!"));
+
+
+        return user.getOrders();
     }
 }
