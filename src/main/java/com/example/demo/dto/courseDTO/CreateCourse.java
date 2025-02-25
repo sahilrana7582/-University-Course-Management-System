@@ -19,6 +19,8 @@ public class CreateCourse {
     @NotBlank
     private String courseCode;
 
+    private Long courseCredit;
+
     private Long department;
 
 

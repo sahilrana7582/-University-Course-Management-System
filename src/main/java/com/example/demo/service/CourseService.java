@@ -28,10 +28,11 @@ public class CourseService {
         course.setCourseName(createCourse.getCourseName());
         course.setCourseCode(createCourse.getCourseCode());
         course.setDepartment(department);
+        course.setCourseCredits(createCourse.getCourseCredit());
 
         Course savedCourse = courseRepository.save(course);
 
-        return new GetCourse(savedCourse.getId(), savedCourse.getCourseName(), savedCourse.getCourseCode(), department.getId());
+        return new GetCourse(savedCourse.getId(), savedCourse.getCourseName(), savedCourse.getCourseCode(), department.getId(), course.getCourseCredits());
     }
 
     public List<Course> getAllCourse(){

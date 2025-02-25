@@ -26,8 +26,11 @@ public class Course {
     @Column(name = "course_name", nullable = false)
     private String courseName;
 
-    @Column(name = "course_code", nullable = false)
+    @Column(name = "course_code", nullable = false, unique = true)
     private String courseCode;
+
+    @Column(name = "course_credit", nullable = false)
+    private Long courseCredits;
 
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)

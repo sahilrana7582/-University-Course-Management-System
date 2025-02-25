@@ -21,5 +21,7 @@ public class GetCourse {
     @NotBlank
     private String courseCode;
 
-    private Long department;
+    private Long creditScore;
+
+    private Long department_id;
 }
