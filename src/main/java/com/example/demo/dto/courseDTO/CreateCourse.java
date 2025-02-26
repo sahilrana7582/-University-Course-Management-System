@@ -21,7 +21,9 @@ public class CreateCourse {
 
     private Long courseCredit;
 
-    private Long department;
+    private String department;
+
+    private String courseDescription;
 
 
 }

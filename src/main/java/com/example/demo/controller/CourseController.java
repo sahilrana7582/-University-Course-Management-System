@@ -28,4 +28,9 @@ public class CourseController {
     public List<Course> getCourse(){
         return courseService.getAllCourse();
     }
+
+    @GetMapping("/{courseCode}")
+    public Course getCourseInfo(@PathVariable String courseCode){
+        return courseService.getCourseInfo(courseCode);
+    }
 }

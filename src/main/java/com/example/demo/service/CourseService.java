@@ -28,15 +28,22 @@ public class CourseService {
         course.setCourseName(createCourse.getCourseName());
         course.setCourseCode(createCourse.getCourseCode());
         course.setDepartment(department);
+        course.setCourseDescription(createCourse.getCourseDescription());
         course.setCourseCredits(createCourse.getCourseCredit());
 
         Course savedCourse = courseRepository.save(course);
 
-        return new GetCourse(savedCourse.getId(), savedCourse.getCourseName(), savedCourse.getCourseCode(), department.getId(), course.getCourseCredits());
+        return new GetCourse(savedCourse.getId(), savedCourse.getCourseName(), savedCourse.getCourseCode(),  course.getCourseCredits(), department.getId(), savedCourse.getCourseDescription());
     }
 
     public List<Course> getAllCourse(){
         return courseRepository.findAll();
+    }
+
+
+    public Course getCourseInfo(String courseCode) {
+        return courseRepository.findByCourseCode(courseCode)
+                .orElseThrow(() -> new RuntimeException("Course not found with courseCode: " + courseCode));
     }
 
 }

@@ -16,5 +16,5 @@ public class AddDepartment {
     @NotBlank
     private String name;
 
-    private Long code;
+    private String code;
 }

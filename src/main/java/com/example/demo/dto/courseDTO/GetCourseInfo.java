@@ -1,17 +1,13 @@
 package com.example.demo.dto.courseDTO;
 
-
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class GetCourse {
+public class GetCourseInfo {
 
     private Long id;
 
@@ -23,7 +19,10 @@ public class GetCourse {
 
     private Long creditScore;
 
-    private Long department_id;
-
     private String courseDescription;
+
+    private String departmentName;
+
+    private String enrolledStudents;
+
 }

@@ -27,11 +27,16 @@ public class Course {
     @Column(name = "course_name", nullable = false)
     private String courseName;
 
+    @Column(name = "course_description", nullable = false)
+    private String courseDescription;
+
     @Column(name = "course_code", nullable = false, unique = true)
     private String courseCode;
 
+
     @Column(name = "course_credit", nullable = false)
     private Long courseCredits;
+
 
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
@@ -41,5 +46,13 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     @JsonBackReference
     private Set<Student> students;
+
+    public String getDepartmentName() {
+        return department != null ? department.getName() : null;
+    }
+
+    public int getEnrolledStudentCount() {
+        return students != null ? students.size() : 0;
+    }
 
 }

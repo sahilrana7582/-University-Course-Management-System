@@ -27,7 +27,7 @@ public class Department {
     private String name;
 
     @Column(nullable = false, unique = true)
-    private Long code;
+    private String code;
 
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
