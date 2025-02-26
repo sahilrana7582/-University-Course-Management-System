@@ -1,11 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.courseDTO.CreateCourse;
+import com.example.demo.dto.courseDTO.CreateManyCourses;
+import com.example.demo.dto.courseDTO.GetAllCourseOverview;
 import com.example.demo.dto.courseDTO.GetCourse;
 import com.example.demo.model.Course;
 import com.example.demo.service.CourseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,5 +35,11 @@ public class CourseController {
     @GetMapping("/{courseCode}")
     public Course getCourseInfo(@PathVariable String courseCode){
         return courseService.getCourseInfo(courseCode);
+    }
+
+    @PostMapping("/bulk")
+    public ResponseEntity<List<GetAllCourseOverview>> addManyCourses(@RequestBody CreateManyCourses createManyCourses) {
+        List<GetAllCourseOverview> courses = courseService.addManyCourses(createManyCourses);
+        return ResponseEntity.ok(courses);
     }
 }

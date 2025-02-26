@@ -6,26 +6,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class CreateCourse {
-
+@AllArgsConstructor
+public class GetAllCourseOverview {
+    private Long id;
 
     @NotBlank
     private String courseName;
 
-    private String courseDescription;
-
-
     @NotBlank
     private String courseCode;
 
-    private Long courseCredit;
+    private Long creditScore;
 
-    private String department;
+    private String departmentName;
 
-
-
+    private String courseDescription;
 }

@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.departmentDTO.AddDepartment;
 import com.example.demo.dto.departmentDTO.AddManyDepartments;
 import com.example.demo.dto.departmentDTO.GetDepartment;
+import com.example.demo.dto.departmentDTO.GetDepartmentOverview;
 import com.example.demo.model.Department;
 import com.example.demo.respository.DepartmentRepository;
 import jakarta.transaction.Transactional;
@@ -55,8 +56,23 @@ public class DepartmentService {
 
 
 
-    public List<Department> getDepartment(){
-        return departmentRepository.findAll();
+
+    public List<GetDepartmentOverview> getAllDepartments() {
+        List<Department> departments = departmentRepository.findAll();
+
+        return departments.stream()
+                .map(department -> new GetDepartmentOverview(
+                        department.getId(),
+                        department.getName(),
+                        department.getCode(),
+                        department.getCourses().size() // Only return the count of courses
+                ))
+                .collect(Collectors.toList());
+    }
+
+
+    public Department getDepartmentInfo(String departmentId){
+        return departmentRepository.findByCode(departmentId).orElseThrow(()-> new RuntimeException("Department Not Found!"));
     }
 
 }

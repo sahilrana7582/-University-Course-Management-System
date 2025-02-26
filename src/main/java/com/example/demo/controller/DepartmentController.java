@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.departmentDTO.AddDepartment;
 import com.example.demo.dto.departmentDTO.AddManyDepartments;
 import com.example.demo.dto.departmentDTO.GetDepartment;
+import com.example.demo.dto.departmentDTO.GetDepartmentOverview;
 import com.example.demo.model.Department;
 import com.example.demo.service.DepartmentService;
 import jakarta.validation.Valid;
@@ -25,13 +26,18 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public List<Department> getDepartment(){
-        return departmentService.getDepartment();
+    public List<GetDepartmentOverview> getDepartment(){
+        return departmentService.getAllDepartments();
     }
 
     @PostMapping("/bulk")
     public ResponseEntity<List<GetDepartment>> insertManyDepartments(@RequestBody AddManyDepartments addManyDepartments) {
         List<GetDepartment> savedDepartments = departmentService.insertManyDepartments(addManyDepartments);
         return ResponseEntity.ok(savedDepartments);
+    }
+
+    @GetMapping("/{departmentId}")
+    public ResponseEntity<Department> getDepartmentInfo(@PathVariable String departmentId){
+        return ResponseEntity.ok(departmentService.getDepartmentInfo(departmentId));
     }
 }

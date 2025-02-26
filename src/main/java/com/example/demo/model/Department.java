@@ -33,4 +33,9 @@ public class Department {
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Course> courses = new ArrayList<>();
+
+
+    public int getTotalCourses(){
+        return courses != null ? courses.size() : 0;
+    }
 }
