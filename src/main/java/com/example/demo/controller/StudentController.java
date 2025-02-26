@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 
 import com.example.demo.dto.studentDTO.CreateStudentAsPersonDTO;
+import com.example.demo.dto.studentDTO.CreateStudentDTO;
 import com.example.demo.dto.studentDTO.GetStudentDTO;
 import com.example.demo.model.Student;
 import com.example.demo.service.StudentService;
@@ -27,6 +28,11 @@ public class StudentController {
     @GetMapping
     public List<Student> getAllStudent(){
         return studentService.getAllStudent();
+    }
+
+    @PostMapping("/{studentId}/enroll/{courseId}")
+    public GetStudentDTO enrollStudentInCourse(@PathVariable Long studentId, @PathVariable Long courseId){
+        return studentService.enrollStudentInCourse(studentId, courseId);
     }
 
 }

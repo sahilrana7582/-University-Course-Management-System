@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "course")
@@ -36,5 +37,9 @@ public class Course {
     @JoinColumn(name = "department_id", nullable = false)
     @JsonBackReference
     private Department department;
+
+    @ManyToMany(mappedBy = "courses")
+    @JsonBackReference
+    private Set<Student> students;
 
 }
