@@ -4,6 +4,7 @@ package com.example.demo.model;
 import com.example.demo.dto.courseDTO.GetCourse;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -51,6 +52,15 @@ public class Course {
     private int totalDurationInYears(){
         return totalDurationInMonths() / 12;
     }
+
+    @ManyToMany
+    @JoinTable(
+            name = "course_module",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "module_id")
+    )
+    @JsonManagedReference
+    private Set<CourseModule> modules;
 
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
