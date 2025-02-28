@@ -1,6 +1,8 @@
 package com.example.demo.dto.courseDTO;
 
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,4 +28,11 @@ public class GetCourse {
     private Long department_id;
 
     private String courseDescription;
+
+    private int totalTerms;
+
+    private int totalDurationInMonths;
+
+    private int totalDurationInYears;
+
 }

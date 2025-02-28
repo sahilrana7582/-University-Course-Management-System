@@ -33,7 +33,7 @@ public class CourseController {
     }
 
     @GetMapping("/{courseCode}")
-    public Course getCourseInfo(@PathVariable String courseCode){
+    public GetCourse getCourseInfo(@PathVariable String courseCode){
         return courseService.getCourseInfo(courseCode);
     }
 

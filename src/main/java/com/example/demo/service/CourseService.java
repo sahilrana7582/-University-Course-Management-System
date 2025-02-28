@@ -35,10 +35,24 @@ public class CourseService {
         course.setDepartment(department);
         course.setCourseDescription(createCourse.getCourseDescription());
         course.setCourseCredits(createCourse.getCourseCredit());
-
+        course.setTotalTerms(createCourse.getTotalTerms());
         Course savedCourse = courseRepository.save(course);
 
-        return new GetCourse(savedCourse.getId(), savedCourse.getCourseName(), savedCourse.getCourseCode(),  course.getCourseCredits(), department.getId(), savedCourse.getCourseDescription());
+        int totalDurationInMonths = savedCourse.getTotalTerms() * 6;
+        int totalDurationInYears = totalDurationInMonths / 12;
+
+
+        return new GetCourse(
+                savedCourse.getId(),
+                savedCourse.getCourseName(),
+                savedCourse.getCourseCode(),
+                savedCourse.getCourseCredits(),
+                department.getId(),
+                savedCourse.getCourseDescription(),
+                savedCourse.getTotalTerms(),
+                totalDurationInMonths,
+                totalDurationInYears
+        );
     }
 
 
@@ -52,6 +66,8 @@ public class CourseService {
             course.setCourseDescription(courseDto.getCourseDescription());
             course.setCourseCode(courseDto.getCourseCode());
             course.setCourseCredits(courseDto.getCourseCredit());
+            course.setTotalTerms(courseDto.getTotalTerms());
+
 
             if (courseDto.getDepartment() != null) {
                 Department department = departmentRepository.findByCode(courseDto.getDepartment())
@@ -67,7 +83,8 @@ public class CourseService {
                 course.getCourseCode(),
                 course.getCourseCredits(),
                 course.getDepartment().getName(),
-                course.getCourseDescription()
+                course.getCourseDescription(),
+                course.getTotalTerms()
         )).collect(Collectors.toList());
     }
 
@@ -76,9 +93,24 @@ public class CourseService {
     }
 
 
-    public Course getCourseInfo(String courseCode) {
-        return courseRepository.findByCourseCode(courseCode)
+    public GetCourse getCourseInfo(String courseCode) {
+        Course course =  courseRepository.findByCourseCode(courseCode)
                 .orElseThrow(() -> new RuntimeException("Course not found with courseCode: " + courseCode));
+
+         int totalDurationInMonths = course.getTotalTerms() * 6;
+         int totalDurationInYears = totalDurationInMonths / 12;
+
+        return new GetCourse(
+                course.getId(),
+                course.getCourseName(),
+                course.getCourseCode(),
+                course.getCourseCredits(),
+                course.getId(),
+                course.getCourseDescription(),
+                course.getTotalTerms(),
+                totalDurationInMonths,
+                totalDurationInYears
+        );
     }
 
 }

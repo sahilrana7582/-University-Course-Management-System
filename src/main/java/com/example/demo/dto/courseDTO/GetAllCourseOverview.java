@@ -25,4 +25,8 @@ public class GetAllCourseOverview {
     private String departmentName;
 
     private String courseDescription;
+
+
+    private int totalTerms;
+
 }

@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 
+import com.example.demo.dto.courseDTO.GetCourse;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -37,6 +38,19 @@ public class Course {
     @Column(name = "course_credit", nullable = false)
     private Long courseCredits;
 
+
+    private int totalTerms;
+
+
+    @Transient
+    private int totalDurationInMonths(){
+        return totalTerms * 6;
+    }
+
+    @Transient
+    private int totalDurationInYears(){
+        return totalDurationInMonths() / 12;
+    }
 
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
