@@ -33,7 +33,7 @@ public class DepartmentService {
 
 
         @Transactional
-        public List<GetDepartment> insertManyDepartments(AddManyDepartments addManyDepartments) {
+        public List<GetDepartment> insertManyDepartments(@org.jetbrains.annotations.NotNull AddManyDepartments addManyDepartments) {
             List<AddDepartment> departmentsToAdd = addManyDepartments.getAddDepartments();
 
             List<GetDepartment> result = departmentsToAdd.stream().map(deptDTO -> {

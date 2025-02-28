@@ -51,7 +51,8 @@ public class CourseService {
                 savedCourse.getCourseDescription(),
                 savedCourse.getTotalTerms(),
                 totalDurationInMonths,
-                totalDurationInYears
+                totalDurationInYears,
+                savedCourse.getModules()
         );
     }
 
@@ -109,7 +110,8 @@ public class CourseService {
                 course.getCourseDescription(),
                 course.getTotalTerms(),
                 totalDurationInMonths,
-                totalDurationInYears
+                totalDurationInYears,
+                course.getModules()
         );
     }
 

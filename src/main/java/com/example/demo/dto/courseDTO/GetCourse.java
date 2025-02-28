@@ -1,6 +1,7 @@
 package com.example.demo.dto.courseDTO;
 
 
+import com.example.demo.model.CourseModule;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,10 +33,14 @@ public class GetCourse {
 
     private String courseDescription;
 
+
     private int totalTerms;
 
     private int totalDurationInMonths;
 
     private int totalDurationInYears;
+
+    private Set<CourseModule> modules;
+
 
 }

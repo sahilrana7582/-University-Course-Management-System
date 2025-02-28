@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class CourseModule {
     private String moduleDescription;
 
     @ManyToMany(mappedBy = "modules")
+    @JsonBackReference
     private Set<Course> courses = new HashSet<>();
 
     public void addCourse(Course course) {
